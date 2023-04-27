@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  application_historic:
+    build: .
+    command: npm start
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - mongo
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.0.4
+    ports:
+      - "27018:27018"
+    volumes:
+      - './data:/data/db'
+
+networks:
+  backend_historic:
+    driver: bridge
